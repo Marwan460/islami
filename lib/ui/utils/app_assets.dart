@@ -12,4 +12,5 @@ abstract class AppAssets {
   static const String IcRadio = "assets/images/icon_radio.png";
   static const String IcSebha = "assets/images/icon_sebha.png";
   static const String Radio = "assets/images/radio_image.png";
+  static const String QuranLogo = "assets/images/qur2an_screen_logo.png";
 }

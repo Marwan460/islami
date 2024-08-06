@@ -6,6 +6,7 @@ import 'package:islami/ui/screen/home/tabs/sebha.dart';
 import 'package:islami/ui/utils/app_Styles.dart';
 import 'package:islami/ui/utils/app_assets.dart';
 import 'package:islami/ui/utils/app_colors.dart';
+import 'package:islami/ui/widget/app_scaffold.dart';
 
 class Home extends StatefulWidget {
   static const String routeName = "home";
@@ -20,21 +21,10 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        image: DecorationImage(image: AssetImage(AppAssets.Background)),
-      ),
-      child: Scaffold(
-        backgroundColor: AppColors.transparent,
-        appBar: BuildAppBar(),
-        bottomNavigationBar: buildButton(),
-        body: tabs[selectedTab],
-      ),
-    );
-  }
-
-  Theme buildButton() {
-    return Theme(
+    return AppScaffold(
+      appBarTitle: "Islami",
+      body: tabs[selectedTab],
+      bottomNavigationBar: Theme(
         data: ThemeData(canvasColor: AppColors.primary),
         child: BottomNavigationBar(
           currentIndex: selectedTab,
@@ -59,15 +49,7 @@ class _HomeState extends State<Home> {
           iconSize: 40,
           selectedItemColor: AppColors.accent,
         ),
-      );
+      ),
+    );
   }
-
-  AppBar BuildAppBar() => AppBar(
-        backgroundColor: AppColors.transparent,
-        title: Text(
-          "اسلامي",
-          style: AppStyles.appBarTextStyle,
-        ),
-        centerTitle: true,
-      );
 }

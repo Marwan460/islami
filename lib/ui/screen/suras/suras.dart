@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:islami/model/Suras_args.dart';
+import 'package:islami/ui/utils/app_colors.dart';
+import 'package:islami/ui/widget/app_scaffold.dart';
 
 class Suras extends StatefulWidget {
   static const String routeName = "Suras";
@@ -20,20 +22,34 @@ class _SurasState extends State<Suras> {
     if (fileContent.isEmpty) {
       readFile();
     }
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("${args.suraName}"),
-      ),
-      body: SingleChildScrollView(child: Text("$fileContent",textDirection: TextDirection.rtl)),
+    return AppScaffold(
+      appBarTitle: args.suraName,
+      body: fileContent.isEmpty ? buildLoading() : buildSuraContent(),
     );
   }
+
+  Widget buildSuraContent() {
+    return Center(
+      child: Container(
+        padding: EdgeInsets.all(8),
+          height: MediaQuery.of(context).size.height * 0.8,
+          width: MediaQuery.of(context).size.width * 0.8,
+          decoration: BoxDecoration(color: Colors.white,borderRadius: BorderRadius.circular(25)),
+          child: SingleChildScrollView(child: Text(fileContent, textDirection: TextDirection.rtl))),
+    );
+  }
+
+  Widget buildLoading() => const Center(
+          child: CircularProgressIndicator(
+        color: AppColors.primary,
+      ));
 
   Future readFile() async {
     fileContent =
         await rootBundle.loadString("assets/files/quran/${args.fileName}");
     List<String> fileLines = fileContent.split("\n");
     fileLines = fileLines.where((line) => line.trim().isNotEmpty).toList();
-    for(int i = 0; i < fileLines.length; i++){
+    for (int i = 0; i < fileLines.length; i++) {
       fileLines[i] += "(${i + 1})";
     }
     fileContent = fileLines.join();

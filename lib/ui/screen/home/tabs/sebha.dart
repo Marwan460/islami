@@ -40,13 +40,14 @@ class _SebhaState extends State<Sebha> {
       Positioned(
           left: 140,
           top: 0,
+          bottom: 475,
           child: Image.asset(
             width: 180,
             height: 250,
             AppAssets.HeadSebha,
           )),
       Positioned(
-          top: 100,
+          top: 80,
           child: GestureDetector(
             onTap: incresCounter,
             child: AnimatedRotation(
@@ -60,7 +61,7 @@ class _SebhaState extends State<Sebha> {
             ),
           )),
       Positioned(
-          bottom: 320, child: Text(style: AppStyles.titles, "عدد التسبيحات")),
+          bottom: 310, child: Text(style: AppStyles.titles, "عدد التسبيحات")),
       Positioned(
           bottom: 240,
           child: Container(

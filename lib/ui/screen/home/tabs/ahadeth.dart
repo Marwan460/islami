@@ -6,6 +6,8 @@ import 'package:islami/ui/utils/app_Styles.dart';
 import 'package:islami/ui/utils/app_assets.dart';
 import '../../../utils/app_colors.dart';
 import '../../../utils/constant.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 
 class Ahadeth extends StatefulWidget {
   const Ahadeth({super.key});
@@ -34,8 +36,8 @@ class _AhadethState extends State<Ahadeth> {
             child: Column(
               children: [
                 buildDivider(),
-                const Text(
-                  "الأحاديث",
+                 Text(
+                  AppLocalizations.of(context)!.ahadeth,
                   style: AppStyles.titles,
                 ),
                 buildDivider(),

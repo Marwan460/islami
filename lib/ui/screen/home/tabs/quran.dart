@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:islami/ui/screen/suras/suras.dart';
-import 'package:islami/ui/utils/app_Styles.dart';
+import 'package:islami/ui/utils/app_styles.dart';
 import 'package:islami/ui/utils/app_assets.dart';
 import 'package:islami/ui/utils/app_colors.dart';
 import 'package:islami/ui/utils/constant.dart';
@@ -29,13 +29,13 @@ class Quran extends StatelessWidget {
                       Expanded(
                           child: Text(
                             AppLocalizations.of(context)!.suarName,
-                        style: AppStyles.titles,
+                        style: Theme.of(context).textTheme.displayLarge,
                         textAlign: TextAlign.center,
                       )),
                       Expanded(
                           child: Text(
                             AppLocalizations.of(context)!.verses,
-                        style: AppStyles.titles,
+                        style: Theme.of(context).textTheme.displayLarge,
                         textAlign: TextAlign.center,
                       )),
                     ],
@@ -74,13 +74,13 @@ class Quran extends StatelessWidget {
                     Expanded(
                         child: Text(
                       constant.suraNames[index],
-                      style: AppStyles.titles,
+                      style: Theme.of(context).textTheme.displayLarge,
                       textAlign: TextAlign.center,
                     )),
                     Expanded(
                         child: Text(
                       constant.verses[index].toString(),
-                      style: AppStyles.titles,
+                      style: Theme.of(context).textTheme.displayLarge,
                       textAlign: TextAlign.center,
                     )),
                   ],

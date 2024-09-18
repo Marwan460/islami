@@ -15,12 +15,14 @@ dependencies:
     sdk: flutter
 
 
-
+  flutter_native_splash: ^2.4.1
   cupertino_icons: ^1.0.6
   flutter_localizations:
     sdk: flutter
   intl: any
   provider: ^6.1.2
+  shared_preferences: ^2.3.2
+
 
 dev_dependencies:
   flutter_test:
@@ -67,3 +69,9 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+
+
+
+
+
+

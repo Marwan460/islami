@@ -3,6 +3,9 @@ import 'package:flutter/services.dart';
 import 'package:islami/model/Suras_args.dart';
 import 'package:islami/ui/utils/app_colors.dart';
 import 'package:islami/ui/widget/app_scaffold.dart';
+import 'package:provider/provider.dart';
+
+import '../../providers/theme_provider.dart';
 
 class Suras extends StatefulWidget {
   static const String routeName = "Suras";
@@ -13,11 +16,13 @@ class Suras extends StatefulWidget {
 
 class _SurasState extends State<Suras> {
   late SurasArgs args;
+  late ThemeProvider themeProvider;
 
   String fileContent = "";
 
   @override
   Widget build(BuildContext context) {
+    themeProvider = Provider.of(context);
     args = ModalRoute.of(context)!.settings.arguments as SurasArgs;
     if (fileContent.isEmpty) {
       readFile();
@@ -34,8 +39,13 @@ class _SurasState extends State<Suras> {
         padding: EdgeInsets.all(8),
           height: MediaQuery.of(context).size.height * 0.8,
           width: MediaQuery.of(context).size.width * 0.8,
-          decoration: BoxDecoration(color: Colors.white,borderRadius: BorderRadius.circular(25)),
-          child: SingleChildScrollView(child: Text(fileContent, textDirection: TextDirection.rtl))),
+          decoration: BoxDecoration(color: themeProvider.isDarkThemeEnabled
+              ? AppColors.primaryDark
+              : AppColors.primary,borderRadius: BorderRadius.circular(25)),
+          child: SingleChildScrollView(child: Text(fileContent, textDirection: TextDirection.rtl,style: TextStyle(
+              color: themeProvider.isDarkThemeEnabled
+                  ? AppColors.accentDark
+                  : Colors.black),))),
     );
   }
 

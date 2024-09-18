@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-
-import '../../../utils/app_Styles.dart';
+import 'package:islami/ui/providers/theme_provider.dart';
+import 'package:provider/provider.dart';
 import '../../../utils/app_assets.dart';
 import '../../../utils/app_colors.dart';
 
@@ -15,8 +15,9 @@ class _SebhaState extends State<Sebha> {
   int count = 0;
   String zikr = "سبحان الله";
   double rotation = 0;
+  late ThemeProvider themeProvider;
 
-  void incresCounter(){
+  void increaseCounter(){
     setState(() {
       count++;
       rotation+= 10;
@@ -36,6 +37,7 @@ class _SebhaState extends State<Sebha> {
 
   @override
   Widget build(BuildContext context) {
+    themeProvider = Provider.of(context);
     return Stack(alignment: Alignment.center, children: [
       Positioned(
           left: 140,
@@ -44,24 +46,26 @@ class _SebhaState extends State<Sebha> {
           child: Image.asset(
             width: 180,
             height: 250,
+            themeProvider.isDarkThemeEnabled ? AppAssets.HeadSephaDark :
             AppAssets.HeadSebha,
           )),
       Positioned(
           top: 80,
           child: GestureDetector(
-            onTap: incresCounter,
+            onTap: increaseCounter,
             child: AnimatedRotation(
               turns: rotation/360,
-              duration: Duration(milliseconds: 300),
+              duration: const Duration(milliseconds: 300),
               child: Image.asset(
                 width: 200,
                 height: 300,
+                themeProvider.isDarkThemeEnabled ? AppAssets.SebhaDark :
                 AppAssets.Sebha,
               ),
             ),
           )),
       Positioned(
-          bottom: 310, child: Text(style: AppStyles.titles, "عدد التسبيحات")),
+          bottom: 310, child: Text(style: Theme.of(context).textTheme.displayLarge, "عدد التسبيحات")),
       Positioned(
           bottom: 240,
           child: Container(
@@ -71,7 +75,7 @@ class _SebhaState extends State<Sebha> {
             alignment: Alignment.center,
             width: 60,
             height: 70,
-            child: Text(style: AppStyles.titles, "$count"),
+            child: Text(style: Theme.of(context).textTheme.displayLarge, "$count"),
           )),
       Positioned(
           bottom: 150,
@@ -82,7 +86,7 @@ class _SebhaState extends State<Sebha> {
             alignment: Alignment.center,
             width: 150,
             height: 70,
-            child: Text(style: AppStyles.titles, "$zikr"),
+            child: Text(style: Theme.of(context).textTheme.displayLarge, zikr),
           )),
     ]);
   }

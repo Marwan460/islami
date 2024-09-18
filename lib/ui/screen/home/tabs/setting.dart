@@ -1,42 +1,46 @@
 import 'package:flutter/material.dart';
 import 'package:islami/ui/providers/language_provider.dart';
-import 'package:islami/ui/utils/app_Styles.dart';
+import 'package:islami/ui/providers/theme_provider.dart';
+import 'package:islami/ui/utils/app_styles.dart';
 import 'package:islami/ui/utils/app_colors.dart';
-import 'package:islami/ui/widget/app_scaffold.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 
-
 class Setting extends StatefulWidget {
-  Setting({super.key});
+  const Setting({super.key});
 
   @override
   State<Setting> createState() => _SettingState();
 }
 
 class _SettingState extends State<Setting> {
-  bool isDarkThemeEnable = false;
-  late LanguageProvider provider;
+  late LanguageProvider languageProvider;
+  late ThemeProvider themeProvider;
+
   @override
   Widget build(BuildContext context) {
-    provider = Provider.of(context);
-    return AppScaffold(
+    languageProvider = Provider.of(context);
+    themeProvider = Provider.of(context);
+    return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(24.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Text(AppLocalizations.of(context)!.language, style: AppStyles.titles),
+            Text(AppLocalizations.of(context)!.language,
+                style: Theme.of(context).textTheme.displayLarge),
             buildDropdownButton(),
-            SizedBox(height: 20,),
+            const SizedBox(
+              height: 20,
+            ),
             Row(
               children: [
-                Text(AppLocalizations.of(context)!.theme, style: AppStyles.titles),
-                Spacer(),
+                Text(AppLocalizations.of(context)!.theme,
+                    style: Theme.of(context).textTheme.displayLarge),
+                const Spacer(),
                 buildSwitch(),
               ],
             ),
-
           ],
         ),
       ),
@@ -45,15 +49,30 @@ class _SettingState extends State<Setting> {
 
   Widget buildDropdownButton() {
     return DropdownButton(
-      isExpanded: true,
-        value: provider.selectedLanguage,
-        items: [
-          DropdownMenuItem(value: "ar", child: Text("العربية")),
-          DropdownMenuItem(value: "en", child: Text("English")),
+        style: TextStyle(
+            color: themeProvider.isDarkThemeEnabled
+                ? AppColors.white
+                : Colors.black),
+        dropdownColor: themeProvider.isDarkThemeEnabled
+            ? Colors.black
+            : AppColors.white,
+        isExpanded: true,
+        value: languageProvider.selectedLanguage,
+        items: const [
+          DropdownMenuItem(
+              value: "ar",
+              child: Text(
+                "العربية",
+              )),
+          DropdownMenuItem(
+              value: "en",
+              child: Text(
+                "English",
+              ))
         ],
         onChanged: (newValue) {
-          provider.selectedLanguage = newValue!;
-          provider.notifyListeners();
+          languageProvider.newLanguage =
+              newValue ?? languageProvider.selectedLanguage;
           setState(() {});
         });
   }
@@ -61,9 +80,9 @@ class _SettingState extends State<Setting> {
   Widget buildSwitch() {
     return Switch(
         activeColor: AppColors.primary,
-        value: isDarkThemeEnable,
+        value: themeProvider.isDarkThemeEnabled,
         onChanged: (newValue) {
-          isDarkThemeEnable = newValue;
+          themeProvider.newTheme = newValue ? ThemeMode.dark : ThemeMode.light;
           setState(() {});
         });
   }

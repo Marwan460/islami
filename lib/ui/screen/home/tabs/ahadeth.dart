@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:islami/model/Hadith.dart';
 import 'package:islami/ui/screen/ahadith/ahadith.dart';
-import 'package:islami/ui/utils/app_Styles.dart';
+import 'package:islami/ui/utils/app_styles.dart';
 import 'package:islami/ui/utils/app_assets.dart';
 import '../../../utils/app_colors.dart';
 import '../../../utils/constant.dart';
@@ -38,7 +38,7 @@ class _AhadethState extends State<Ahadeth> {
                 buildDivider(),
                  Text(
                   AppLocalizations.of(context)!.ahadeth,
-                  style: AppStyles.titles,
+                  style: Theme.of(context).textTheme.displayLarge,
                 ),
                 buildDivider(),
                 buildAhadeathList(),
@@ -78,7 +78,7 @@ class _AhadethState extends State<Ahadeth> {
                         Expanded(
                             child: Text(
                           hadithList[index].title,
-                          style: AppStyles.titles,
+                          style: Theme.of(context).textTheme.displayLarge,
                           textAlign: TextAlign.center,
                         )),
                       ],
